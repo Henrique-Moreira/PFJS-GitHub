@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <title>Aplicação 02</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
+
 <body>
-    <h1>Clientes cadastrados</h1>
-    <form>
-        <select name="escolha" id="selectEscolha" onchange="loadCustomers(value)">
-            <option>Selecione</option>
-            <option value="a">Todos</option>
-            <option value="m">Homens</option>
-            <option value="f">Mulheres</option>
-          </select>
-    </form>
-    <table id="tabData">
-        <!-- <tr>
-            <th>Cliente</th>
-            <th>Idade</th>
-            <th>Sexo</th>
-        </tr> -->
-    </table>
+    <div class="box">
+        <h1>Clientes cadastrados</h1>
+        <form>
+            <select name="escolha" id="selectEscolha" onchange="loadCustomers(value)" class="selectInput">
+                <option>Selecione</option>
+                <option value="a">Todos</option>
+                <option value="m">Homens</option>
+                <option value="f">Mulheres</option>
+            </select>
+        </form>
+        <table id="tabData">
+            <!-- <tr>
+                <th>Cliente</th>
+                <th>Idade</th>
+                <th>Sexo</th>
+            </tr> -->
+        </table>
+    </div>
 </body>
 <script>
     function loadCustomers(escolha) {
         var file = "json/clientes.json";
 
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (xhttp.status == 200 && xhttp.readyState == 4) {
                 loadInfoCustomers(xhttp, escolha);
             }
@@ -41,7 +45,7 @@
         var tab = document.getElementById("tabData");
 
         while (tab.hasChildNodes()) {
-        tab.removeChild(tab.firstChild);
+            tab.removeChild(tab.firstChild);
         }
 
         var cabecalho = document.createElement("tr");
@@ -51,7 +55,8 @@
         cabecalhoIdade = document.createTextNode("Idade");
         cabecalho.appendChild(linhaCabecalho1);
         cabecalho.appendChild(linhaCabecalho2);
-        if(escolha == "a") {
+
+        if (escolha == "a") {
             var linhaCabecalho3 = document.createElement("th");
             cabecalhoSexo = document.createTextNode("Sexo");
             linhaCabecalho3.appendChild(cabecalhoSexo);
@@ -59,44 +64,44 @@
         }
         tab.appendChild(cabecalho);
 
-    array = JSON.parse(obj.responseText);
+        array = JSON.parse(obj.responseText);
 
-    if(escolha == "a") {
-        array.forEach(imprimePessoas);
-    } else if(escolha == "m") {
-        let filterMens = (array) => (array.filter((value) => value.sexo == "M"));
-        let mens = filterMens(array);
-        mens.forEach(imprimePessoas);
-    } else if(escolha == "f") {
-        let filterWomans = (array) => (array.filter((value) => value.sexo == "F"));
-        let womans = filterWomans(array);
-        womans.forEach(imprimePessoas, escolha);
-    }
-    function imprimePessoas(element) {
-        
-        var linha = document.createElement("tr");
+        if (escolha == "a") {
+            array.forEach(imprimePessoas);
+        } else if (escolha == "m") {
+            let filterMens = (array) => (array.filter((value) => value.sexo == "M"));
+            let mens = filterMens(array);
+            mens.forEach(imprimePessoas);
+        } else if (escolha == "f") {
+            let filterWomans = (array) => (array.filter((value) => value.sexo == "F"));
+            let womans = filterWomans(array);
+            womans.forEach(imprimePessoas, escolha);
+        }
+        function imprimePessoas(element) {
 
-        var colunaNome = document.createElement("td");
-        var colunaIdade = document.createElement("td");
-        var colunaSexo = document.createElement("td");
+            var linha = document.createElement("tr");
+            var colunaNome = document.createElement("td");
+            var colunaIdade = document.createElement("td");
+            var colunaSexo = document.createElement("td");
 
-        nome = document.createTextNode(element.nome);
-        idade = document.createTextNode(element.idade);
-        linhaCabecalho1.appendChild(cabecalhoNome);
-        colunaNome.appendChild(nome);
-        linhaCabecalho2.appendChild(cabecalhoIdade);
-        colunaIdade.appendChild(idade);
+            nome = document.createTextNode(element.nome);
+            idade = document.createTextNode(element.idade);
+            linhaCabecalho1.appendChild(cabecalhoNome);
+            colunaNome.appendChild(nome);
+            linhaCabecalho2.appendChild(cabecalhoIdade);
+            colunaIdade.appendChild(idade);
 
-        linha.appendChild(colunaNome);
-        linha.appendChild(colunaIdade);
-        
-        tab.appendChild(linha);
-        if(escolha == "a") {
-            sexo = document.createTextNode(element.sexo);
-            colunaSexo.appendChild(sexo);
-            linha.appendChild(colunaSexo);
+            linha.appendChild(colunaNome);
+            linha.appendChild(colunaIdade);
+
+            tab.appendChild(linha);
+            if (escolha == "a") {
+                sexo = document.createTextNode(element.sexo);
+                colunaSexo.appendChild(sexo);
+                linha.appendChild(colunaSexo);
             }
         }
     }
 </script>
+
 </html>
