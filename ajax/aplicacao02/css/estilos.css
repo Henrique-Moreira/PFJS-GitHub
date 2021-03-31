@@ -4,7 +4,7 @@
 }
 table {
     border-collapse: collapse;
-    width: 300px;
+    width: 10%;
     margin: 0 auto;
 }
 
@@ -30,9 +30,9 @@ h1 {
 }
 
 .box {
-    padding: 10px;
-    width: 600px;
-    height: 400px;
+    padding: 20px;
+    width: 60%;
+    height: 100%;
     border-radius: 50px;
     margin: 0 auto;
     background-image: linear-gradient(red, yellow);
